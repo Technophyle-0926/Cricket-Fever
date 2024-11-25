@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SloganApi extends StatefulWidget {
-  const SloganApi({super.key});
+class SloganNoPageApi extends StatefulWidget {
+  const SloganNoPageApi({super.key});
 
   @override
-  State<SloganApi> createState() => _SloganApiState();
+  State<SloganNoPageApi> createState() => _SloganNoPageApiState();
 }
 
-class _SloganApiState extends State<SloganApi> {
+class _SloganNoPageApiState extends State<SloganNoPageApi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
