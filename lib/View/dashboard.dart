@@ -27,20 +27,20 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<Pages> ofPages = [
-    Pages(title: "Slogans", page: const SlogansApi()),
-    Pages(title: "RCB Images", page: const RcbImagesApi()),
-    Pages(title: "Single News", page: const SingleNewsApi()),
-    Pages(title: "Quotes", page: const QuotesApi()),
-    Pages(title: "Videos", page: const VideosApi()),
-    Pages(title: "Wallpapers", page: const WallpaperApi()),
     Pages(title: "Slogans no pagination", page: const SloganNoPageApi()),
     Pages(title: "RCB Images no pagination", page: const RcbImagesNoPageApi()),
     Pages(title: "All news", page: const AllNewsApi()),
     Pages(title: "Quotes no pagination", page: const QuotesNoPageApi()),
-    Pages(title: "Videos no pagination", page: const VideosNoPageApi()),
     Pages(title: "Wallpapers no pagination", page: const WallpaperNoPageApi()),
-    Pages(title: "Personal Quotes", page: const PersonalQuotesApi()),
+    Pages(title: "Videos no pagination", page: const VideosNoPageApi()),
+    Pages(title: "Slogans", page: const SlogansApi()),
+    Pages(title: "RCB Images", page: const RcbImagesApi()),
+    Pages(title: "Single News", page: const SingleNewsApi()),
+    Pages(title: "Quotes", page: const QuotesApi()),
+    Pages(title: "Wallpapers", page: const WallpaperApi()),
+    Pages(title: "Videos", page: const VideosApi()),
     Pages(title: "Family", page: const FamilyApi()),
+    Pages(title: "Personal Quotes", page: const PersonalQuotesApi()),
     Pages(title: "Auto List", page: const AutoListApi()),
   ];
 

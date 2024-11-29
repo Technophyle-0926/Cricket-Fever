@@ -13,9 +13,10 @@ class SlogansApi extends StatefulWidget {
 
 class _SlogansApiState extends State<SlogansApi> {
   List<Slogans>? getresponse;
-  getdata() async {
+  int currentPage = 1;
+  getdata(int page) async {
     var response = await http.get(Uri.parse(
-        "https://mapi.trycatchtech.com/v3/virat_kohli/slogans_list?page=1"));
+        "https://mapi.trycatchtech.com/v3/virat_kohli/slogans_list?page=$page"));
     if (response.statusCode == 200) {
       getresponse = Slogans.ofSlogans(jsonDecode(response.body));
       setState(() {});
@@ -24,7 +25,7 @@ class _SlogansApiState extends State<SlogansApi> {
 
   @override
   void initState() {
-    getdata();
+    getdata(currentPage);
     super.initState();
   }
 
@@ -39,30 +40,73 @@ class _SlogansApiState extends State<SlogansApi> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: getresponse!.length,
-              itemBuilder: (context, i) {
-                return SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${getresponse![i].slogan}"),
-                          ],
-                        ),
-                      ),
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: getresponse!.length,
+                      itemBuilder: (context, i) {
+                        return SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("${getresponse![i].slogan}"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                );
-              },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (currentPage > 1) {
+                            currentPage--;
+                            getdata(currentPage);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightBlueAccent,
+                          foregroundColor: Colors.black,
+                        ),
+                        label: const Text("Previous"),
+                        icon: const Icon(Icons.keyboard_arrow_left),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (currentPage < 2) {
+                            getdata(currentPage + 1);
+                            currentPage++;
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightGreenAccent,
+                          foregroundColor: Colors.black,
+                        ),
+                        label: const Text("Next"),
+                        icon: const Icon(Icons.keyboard_arrow_right),
+                        iconAlignment: IconAlignment.end,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
     );
   }
